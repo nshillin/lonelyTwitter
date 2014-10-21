@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class LonelyTwitterActivity extends Activity {
 
@@ -25,6 +26,14 @@ public class LonelyTwitterActivity extends Activity {
 	private ListView oldTweetsList;
 	private ArrayList<NormalTweetModel> tweets;
 	private ArrayAdapter<NormalTweetModel> adapter;
+	
+	public ArrayAdapter<NormalTweetModel> getAdapter() {
+		return adapter;
+	}
+	
+	public int tweetCount() {
+		return adapter.getCount();
+	}
 	
 	/** Called when the activity is first created. */
 	@Override

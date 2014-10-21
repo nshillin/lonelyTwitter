@@ -2,12 +2,14 @@ package ca.ualberta.cs.lonelytwitter.test;
 
 import android.app.Activity;
 import android.app.Instrumentation;
+import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.ViewAsserts;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import ca.ualberta.cs.lonelytwitter.IntentReaderActivity;
 import ca.ualberta.cs.lonelytwitter.LonelyTwitterActivity;
 import ca.ualberta.cs.lonelytwitter.NormalTweetModel;
 
@@ -42,5 +44,35 @@ public class LonelyTwitterActivityUITest extends
 		assertNotNull(activity.findViewById(ca.ualberta.cs.lonelytwitter.R.id.save));
 		textInput.setText(text);
 		((Button) activity.findViewById(ca.ualberta.cs.lonelytwitter.R.id.save)).performClick();
+	}
+	
+	public void testAddTweet() throws Throwable {
+		Intent intent = new Intent();
+		setActivityIntent(intent);
+		LonelyTwitterActivity activity = (LonelyTwitterActivity) getActivity();
+		int numberOfTweets = activity.tweetCount();
+		runTestOnUiThread(new Runnable() {
+			@Override
+			public void run()
+			{
+				makeTweet("some string");
+			}
+		});		
+		assertEquals(numberOfTweets+1,activity.getAdapter().getCount());
+	}
+	
+	public void testTweetType() throws Throwable {
+		Intent intent = new Intent();
+		setActivityIntent(intent);
+		LonelyTwitterActivity activity = (LonelyTwitterActivity) getActivity();
+		int numberOfTweets = activity.tweetCount();
+		runTestOnUiThread(new Runnable() {
+			@Override
+			public void run()
+			{
+				makeTweet("some string");
+			}
+		});		
+	//	assertTrue(compare(activity.getAdapter().getItem(activity.getAdapter().getCount()-1)));
 	}
 }
